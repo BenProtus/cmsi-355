@@ -7,3 +7,7 @@ The coolest paper of 1974 was titled _A Protocol for Packet Network Intercommuni
 ## Problem 2
 
 I don't know.
+
+## Problem 6
+
+"Lo" was the first packet sent on the ARPANET and "Behold" was the second.

@@ -17,7 +17,7 @@ class EchoHandler(socketserver.StreamRequestHandler):
         self.wfile.write(data.decode('utf-8').upper().encode('utf-8'))
 
 if __name__ == '__main__':
-    server = ThreadedTCPServer(('', 9898), EchoHandler)
+    server = ThreadedTCPServer(('', 43210), EchoHandler)
     with server:
         print(f'The capitalization server is running')
         server.serve_forever()
