@@ -10,7 +10,7 @@ Packet switching is a more efficient and effective way of transmitting data as c
 
 ## Problem 3: Who publishes the RFCs?
 
-The Internet Engineering Task Force (IETF), the Internet Research Task Force (IRTF), and the Internet Architecture Board (IAB).
+The Internet Engineering Task Force (IETF), the Internet Research Task Force (IRTF), and the Internet Architecture Board (IAB). An announcement is sent to their mailing list which can be subscribed to here: https://www.ietf.org/mailman/listinfo/ietf-announce
 
 ## Problem 4: What command do you use to show your host’s routing table?
 
@@ -18,15 +18,15 @@ The Internet Engineering Task Force (IETF), the Internet Research Task Force (IR
 
 ## Problem 5: What does the transport layer take care of? What does it not need to know?
 
-The transport layer breaks up the data stream in the application layer into transport-layer packets to then send to the network layer. Once the network layer has reached the appropriate destination, the transport layer sends the data to the appropriate application host. Therefore the transport layer is not concerned with the data's IP destination, but rather ensures the data finds the right application.
+The transport layer breaks up the data stream in the application layer into transport-layer packets to then send to the network layer. The transport layer is also responsible for assigning source and destination addresses to the header of each packet. Once the network layer has reached the appropriate destination, the transport layer sends the data to the appropriate application host. Therefore the transport layer is not concerned with the data's IP destination, but rather ensures the data finds the right application.
 
 ## Problem 6: What was the first message sent on the ARPANET? The second?
 
-"Lo" was the first message sent on the ARPANET because the system crashed before the full intended message "Login" was written. "Login" was the second message sent on the ARPANET about an hour later after debugging the system.
+"Lo" was the first message sent on the ARPANET because the system crashed before the full intended message "Login" was written. "Login" was the second message sent on the ARPANET about an hour later after debugging the system. _Lo_ now symbolizes _Low and Behold_.
 
 ## Problem 7: Contrast TCP and UDP in a couple sentences.
 
-TCP and UDP both accomplish the same goal of sending packets of data to the Internet layer, and then send those data packets to the appropriate application. However, TCP ensures a more secure data transmission than UDP using several checks and balances. TCP organizes that packets of data in a specific order and communicates with the recipient to ensure that all the data packets reach the appropriate application in the right order. Alternatively, UDP randomly sends the data packets to the intended application without communicating with the recipient. This means that not all the data packets are guarenteed to reach the destination, but also eliminates time wasted from the back-and-forth communication between the client and server that is required by TCP.
+TCP and UDP both accomplish the same goal of sending packets of data to the Internet layer, and then send those data packets to the appropriate application. However, TCP ensures a more secure data transmission than UDP using several checks and balances. TCP organizes that packets of data in a specific order and communicates with the recipient to ensure that all the data packets reach the appropriate application in the right order. Alternatively, UDP continuously sends the data packets to the intended application without communicating with the recipient. This means that not all the data packets are guaranteed to reach the destination, but also eliminates time wasted from the back-and-forth communication between the client and server that is required by TCP.
 
 ## Problem 8: What is the smallest possible IP packet size?
 
