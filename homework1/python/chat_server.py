@@ -38,6 +38,6 @@ class ChatHandler(socketserver.StreamRequestHandler):
                 address.wfile.write(response.encode('utf-8'))  
 
 
-with ThreadedTCPServer(('', 43210), ChatHandler) as server:
+with ThreadedTCPServer(('', 59001), ChatHandler) as server:
     print(f'The chat server is running...')
     server.serve_forever()
