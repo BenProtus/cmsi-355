@@ -7,4 +7,4 @@ import socket
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     host = input('Enter the IP address of a machine running the date server: ')
     sock.connect((host, 53211))
-    print(f'Server says: {sock.recv(2048).decode("utf-8")}')
+    print(f'Server says: {sock.recv(1024).decode("utf-8")}')

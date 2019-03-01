@@ -5,14 +5,13 @@
 # handle another client.
 
 import socketserver
-from datetime import datetime
+import random
 
-class RandomNumberHandler(socketserver.StreamRequestHandler):
+class NumberHandler(socketserver.StreamRequestHandler):
     def handle(self):
-        self.wfile.write(datetime.now().isoformat().encode('utf-8'))
-        # Convert to String for conversion
+        self.wfile.write(f'{random.randint(0,101)}\n'.encode('utf-8'))
 
 if __name__ == '__main__':
-    with socketserver.TCPServer(('', 53211), RandomNumberHandler) as server:
-        print('The date server is running')
+    with socketserver.TCPServer(('', 53211), NumberHandler) as server:
+        print('The date server is running...')
         server.serve_forever()
