@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rand Num Client</title>
+  </head>
+  <body>
+    <p>IP Address of Server: <input id="ip" type="text"></p>
+    <p><button id="go">Get Random Number</button></p>
+    <p id="response"></p>
+    <script>
+      // Opens a new socket on every click
+      document.querySelector('#go').addEventListener('click', () => {
+        const host = document.querySelector('#ip').value;
+        const socket = new WebSocket(`ws://${host}:53211`);
+        socket.addEventListener('message', (event) => {
+          document.querySelector('#response').textContent = event.data;
+          socket.close();
+        });
+      })
+    </script>
+  </body>
+</html>

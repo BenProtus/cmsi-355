@@ -1,7 +1,8 @@
-const net = require('net');
+const WebSocket = require('ws');
 
-const client = new net.Socket();
-client.connect({ port: 53211, host: process.argv[2] });
-client.on('data', (data) => {
-  console.log(data.toString('utf-8'));
+const host = process.argv[2];
+const socket = new WebSocket(`ws://${host}:53211`);
+socket.addEventListener('message', (event) => {
+  console.log(event.data);
+  socket.close();
 });
