@@ -66,17 +66,33 @@ Some computers are more well-suited to run multiple services concurrently as com
 - Contact server and interact
 
 ## Problem 16: What basic operating system feature does a concurrent server use to handle requests from multiple clients simultaneously?
+Concurrent servers use threads to handle requests from multiple clients simultaneously, while a main thread accepts new connections assigning new clients with a separate handling thread.
 
 ## Problem 17: What performance problem motivates peer-to-peer communication?
+Many client-server architectures are prone to bottlenecks such that information cannot flow from the clients to a server and back efficiently. Rather than storing all the shared information on a single server, divide the information between many clients evenly. That way the information is only accessed a fraction of the rate that a dedicated server computer would be, saving resources over all.
 
 ## Problem 18: Name two operating systems that offer the socket API.
+Microsoft Windows and UNIX systems (Linux)
 
 ## Problem 19: Once a socket is created, how does an application reference the socket?
+When a socket is created, the operating system returns an integer value to reference the socket with.
 
 ## Problem 20: What are the main functions in the socket API?
+accept, bind, close, connect, getpeername, getsockopt, listen, recv, recvmsg, recvfrom, send (write), sendmsg, sendto, setsockopt, shutdown, socket
 
 ## Problem 21: Give the typical sequence of socket calls used by a client and by a server.
+| client         | server         |
+| :------------- | :------------- |
+|                | socket         |
+|                | bind           |
+| socket         | listen         |
+| connect        | accept         |
+| send           | recv           |
+| recv           | send           |
+| close          | close          |
 
 ## Problem 22: To what socket functions do __*read*__ and __*write*__ correspond?
+__read__ corresponds to the socket function `recv` and __write__ corresponds to the socket function `send` in most operating systems.
 
 ## Problem 23: Does a client ever use __*bind*__? Explain.
+No, the __blind__ function is used by the server to supply a protocol port number at which the server will wait for contact.
