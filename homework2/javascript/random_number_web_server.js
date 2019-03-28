@@ -1,6 +1,11 @@
 const http = require('http');
 
 http.createServer((request, response) => {
+<<<<<<< Updated upstream
+=======
+  console.log('request', util.inspect(request))\
+
+>>>>>>> Stashed changes
   if (request.url === '/random') {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end(Math.floor(Math.random() * 100).toString(), 'utf-8');

@@ -78,7 +78,7 @@ Microsoft Windows and UNIX systems (Linux)
 When a socket is created, the operating system returns an integer value to reference the socket with.
 
 ## Problem 20: What are the main functions in the socket API?
-accept, bind, close, connect, getpeername, getsockopt, listen, recv, recvmsg, recvfrom, send (write), sendmsg, sendto, setsockopt, shutdown, socket
+accept, bind, close, connect, getpeername, getsockopt, listen, recv, recvmsg, recvfrom, send (write), sendmsg, sendto, setsockopt, shutdown, and socket.
 
 ## Problem 21: Give the typical sequence of socket calls used by a client and by a server.
 | client         | server         |
