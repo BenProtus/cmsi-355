@@ -1,29 +1,22 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({
-    port: 53211
-})
+const server = new WebSocket.Server({ port: 53211 });
 
-clients = []
+const names = new Set();
+const sockets = new Set();
 
-server.on('request', function (request) {
-    console.log('New Connection: ', request.connection.remoteAddress)
-    var connection = request.accept();
-    var userName = false;
+server.on('connection', (ws, req) => {
+  console.log('Connection from', req.connection.remoteAddress);
 
-    connection.on('message', function (message) {
-        if (message.type === 'utf-8') {
-            if (userName === false) {
-                userName = message.utf8data;
-                clients.push(connection);
-                server.send(userName + ' has joined');
-            } else {
-                clients.forEach(client.send(message.utf8data));
-            }
-        }
-    });
+  ws.send('SUBMITNAME');
+  // ws.on('message', (message) => if message NAME then check for unique then if unique THEN
+  // put ws in the sockets set and put name in names)
 
-    connection.on('close', function(connection) {
-        list.splice( list.indexOf('connection'), 1 );
-    });
-})
+  ws.on('message', (message) => {
+    if (message.startsWith('NAME')) {
+        names.add(message.substring(5))
+    }
+    console.log('Message is', message);
+    ws.send(message.toUpperCase());
+  });
+});

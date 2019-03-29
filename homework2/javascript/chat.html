@@ -1,28 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Simple Chat Client</title>
-        <style>
-            * { font-family:sans-serif; font-size:18px; padding:0px; margin:0px; }
-            p { line-height:24px; }
-            div { width:500px; margin-left:auto; margin-right:auto;}
-            #content { padding:5px; background:#eee; border-radius:5px; overflow-y: scroll;
-                       border:1px solid #ddd; margin-top:10px; height:160px; }
-            #status { float:left; margin-top:15px; width:90px; display:block; }
-            #input { padding:5px; border-radius: 2px; border:1px solid #ccc;
-                     margin-top:10px; width:400px; }
-        </style>
-    </head>
+<h1>Chat</h1>
+<div id="nameSection">
+    Name: <input id="name"><button id="submitname">Send</button>
+</div>
+<div id="messageSection" style="display: none">
+    Message: <input id="message"><button id="submitmessage">Send</button>
+</div>
+<p id="responses"></p>
 
-    <body>
-        <div id="content"></div>
-        <div>
-            <span id="status">Connecting...</span>
-            <input type="text" id="input" disabled="disabled"/>
-        </div>
-
-        <!--This is where the fancy scripts go-->
-        
-    </body>
-</html>
