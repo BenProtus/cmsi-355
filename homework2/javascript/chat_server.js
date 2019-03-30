@@ -8,13 +8,18 @@ const sockets = new Set();
 server.on('connection', (ws, req) => {
   console.log('Connection from', req.connection.remoteAddress);
 
-  ws.send('SUBMITNAME');
-  // ws.on('message', (message) => if message NAME then check for unique then if unique THEN
-  // put ws in the sockets set and put name in names)
-
   ws.on('message', (message) => {
-    if (message.startsWith('NAME')) {
-        names.add(message.substring(5))
+    if (message.startsWith('NAME ')) {
+        name = message.substring(5);
+        if (!names.has(name)) {
+            socket.send('NAMEACCEPTED');
+            names.add(name);
+            sockets.add(ws);
+        }
+    } else if (message.startsWith('MESSAGE ')) {
+        for (var user of sockets) {
+            user.send(name + ": " + message.substring(8))
+        }
     }
     console.log('Message is', message);
     ws.send(message.toUpperCase());
