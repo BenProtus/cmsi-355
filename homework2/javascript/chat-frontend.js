@@ -11,25 +11,30 @@ let host = 'localhost';
 
 addEventListener('load', () => {
   socket = new WebSocket(`ws://${host}:53211`);
+  
   socket.addEventListener('message', (event) => {
-    if (messageArea.startsWith('NAMEACCEPTED')) {
-        nameHide.style.display('none');
-        messageHide.style.display('block');
+    if (event.data === 'NAMEACCEPTED') {
+        nameHide.style.display = 'none';
+        messageHide.style.display = 'block';
     } else {
         responses.innerHTML += `${event.data}<br>`;
     }
   });
+
+  submitName.addEventListener('click', () => {
+    console.log('NAME', nameArea.value);
+    socket.send('NAME ' + nameArea.value);
+  });
+
+  submitMessage.addEventListener('click', () => {
+    console.log('I am going to send', messageArea.value);
+    socket.send('MESSAGE', messageArea.value);
+    messageArea.value = '';
+  });
+
 });
 
-submitName.addEventListener('click', () => {
-    socket.send('NAME ', nameArea.value);
-})
 
-submitMessage.addEventListener('click', () => {
-  console.log('I am going to send', messageArea.value)
-  socket.send('MESSAGE ', messageArea.value);
-  messageArea.value = '';
-})
 
 
 

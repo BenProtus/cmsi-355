@@ -9,19 +9,22 @@ server.on('connection', (ws, req) => {
   console.log('Connection from', req.connection.remoteAddress);
 
   ws.on('message', (message) => {
-    if (message.startsWith('NAME ')) {
+    console.log(message)
+    if (message.startsWith('NAME')) {
         name = message.substring(5);
+        console.log(name);
         if (!names.has(name)) {
-            socket.send('NAMEACCEPTED');
+            ws.send('NAMEACCEPTED');
             names.add(name);
             sockets.add(ws);
+            for (var user of sockets) {
+              user.send(name + ' has joined the chat');
+            }
         }
-    } else if (message.startsWith('MESSAGE ')) {
+    } else if (message.startsWith('MESSAGE')) {
         for (var user of sockets) {
             user.send(name + ": " + message.substring(8))
         }
     }
-    console.log('Message is', message);
-    ws.send(message.toUpperCase());
   });
 });
