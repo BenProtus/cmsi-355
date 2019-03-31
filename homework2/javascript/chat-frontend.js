@@ -11,13 +11,13 @@ let host = 'localhost';
 
 addEventListener('load', () => {
   socket = new WebSocket(`ws://${host}:53211`);
-  
+
   socket.addEventListener('message', (event) => {
     if (event.data === 'NAMEACCEPTED') {
-        nameHide.style.display = 'none';
-        messageHide.style.display = 'block';
+      nameHide.style.display = 'none';
+      messageHide.style.display = 'block';
     } else {
-        responses.innerHTML += `${event.data}<br>`;
+      responses.innerHTML += `${event.data}<br>`;
     }
   });
 
@@ -28,13 +28,8 @@ addEventListener('load', () => {
 
   submitMessage.addEventListener('click', () => {
     console.log('I am going to send', messageArea.value);
-    socket.send('MESSAGE', messageArea.value);
+    socket.send('MESSAGE ' + messageArea.value);
     messageArea.value = '';
   });
 
 });
-
-
-
-
-
