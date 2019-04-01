@@ -11,7 +11,7 @@ const server = new WebSocket.Server({
   port: 53210
 });
 
-const names = new Set();
+const names = {};
 const sockets = new Set();
 
 server.on('connection', (ws, req) => {
@@ -26,15 +26,16 @@ server.on('connection', (ws, req) => {
     if (message.startsWith('NAME')) {
       name = message.substring(5);
       console.log(name);
-      if (!names.has(name)) {
+      if (!Object.values(names).indexOf(name) > -1) {
         ws.send('NAMEACCEPTED');
-        names.add(name);
+        names[ws] = name;
         sockets.add(ws);
         for (var user of sockets) {
           user.send(name + ' has joined the chat.');
         }
       }
     } else if (message.startsWith('MESSAGE')) {
+      name = names[ws];
       message = message.substring(8);
       if (message.startsWith('/quit')) {
         ws.close();
@@ -69,6 +70,6 @@ server.on('connection', (ws, req) => {
       user.send(name + ' has left the chat.');
     }
     sockets.delete(ws);
-    names.delete(name);
+    delete names.ws;
   });
 });
