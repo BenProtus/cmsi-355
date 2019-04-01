@@ -1,7 +1,14 @@
+const path = require('path');
+const express = require('express');
 const WebSocket = require('ws');
 
+const app = express();
+app.use(express.static('public'));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'chat.html')));
+app.listen(53211, () => console.log('Chat server is running'));
+
 const server = new WebSocket.Server({
-  port: 53211
+  port: 53210
 });
 
 const names = new Set();
@@ -11,6 +18,11 @@ server.on('connection', (ws, req) => {
   console.log('Connection from', req.connection.remoteAddress);
 
   name = null;
+
+  ws.on('error', (error) => {
+    console.log('WebSocket Error: ' + error);
+  });
+
   ws.on('message', (message) => {
     console.log(message)
     if (message.startsWith('NAME')) {
@@ -43,8 +55,9 @@ server.on('connection', (ws, req) => {
         for (var user of sockets) {
           user.send(name + ": " + message);
         }
-      } else if (message.startsWith('/')) {
-
+      } else if (message.startsWith('/help')) {
+        message = '/quit: exit chat app\n/yell: sends screaming text\n/whisper: sends lowercase text\n/heart: heart emote\n/help: dialogue options';
+        // name.send(message);
       } else {
         for (var user of sockets) {
           user.send(name + ": " + message);
