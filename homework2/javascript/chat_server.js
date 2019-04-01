@@ -17,8 +17,6 @@ const sockets = new Set();
 server.on('connection', (ws, req) => {
   console.log('Connection from', req.connection.remoteAddress);
 
-  name = null;
-
   ws.on('error', (error) => {
     console.log('WebSocket Error: ' + error);
   });
@@ -41,12 +39,12 @@ server.on('connection', (ws, req) => {
       if (message.startsWith('/quit')) {
         ws.close();
       } else if (message.startsWith('/yell')) {
-        message = message.toUpperCase();
+        message = message.substring(6).toUpperCase();
         for (var user of sockets) {
           user.send(name + ": " + message);
         }
       } else if (message.startsWith('/whisper')) {
-        message = message.toLowerCase();
+        message = message.substring(9).toLowerCase();
         for (var user of sockets) {
           user.send(name + ": " + message);
         }
@@ -57,7 +55,7 @@ server.on('connection', (ws, req) => {
         }
       } else if (message.startsWith('/help')) {
         message = '/quit: exit chat app\n/yell: sends screaming text\n/whisper: sends lowercase text\n/heart: heart emote\n/help: dialogue options';
-        // name.send(message);
+        ws.send(message);
       } else {
         for (var user of sockets) {
           user.send(name + ": " + message);
@@ -67,10 +65,10 @@ server.on('connection', (ws, req) => {
   });
 
   ws.on('close', (connection) => {
-    sockets.delete(ws);
     for (var user of sockets) {
       user.send(name + ' has left the chat.');
     }
+    sockets.delete(ws);
     names.delete(name);
   });
 });
