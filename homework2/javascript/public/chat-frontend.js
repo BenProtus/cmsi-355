@@ -10,7 +10,7 @@ let socket = null;
 let host = 'localhost';
 
 addEventListener('load', () => {
-  socket = new WebSocket(`ws://${host}:53211`);
+  socket = new WebSocket(`ws://${host}:53210`);
 
   socket.addEventListener('message', (event) => {
     if (event.data === 'NAMEACCEPTED') {
