@@ -37,25 +37,26 @@ server.on('connection', (ws, req) => {
       }
     } else if (message.startsWith('MESSAGE')) {
       message = message.substring(8);
-      if (message.startsWith('/quit')) {
+      text = message.substring(message.indexOf(':') + 2)
+      if (text.startsWith('/quit')) {
         ws.close();
-      } else if (message.startsWith('/yell')) {
-        message = message.substring(6).toUpperCase();
+      } else if (text.startsWith('/yell')) {
+        message = message.substring(0, message.indexOf(':')+1) + ' ' + text.substring(6).toUpperCase();
         for (var user of sockets) {
           user.send(message);
         }
-      } else if (message.startsWith('/whisper')) {
-        message = message.substring(9).toLowerCase();
+      } else if (text.startsWith('/whisper')) {
+        message = message = message.substring(0, message.indexOf(':')+1) + ' ' + text.substring(9).toLowerCase();
         for (var user of sockets) {
           user.send(message);
         }
-      } else if (message.startsWith('/heart')) {
-        message = '\u2764';
+      } else if (text.startsWith('/heart')) {
+        message = message.substring(0, message.indexOf(':')+1) + ' \u2764';
         for (var user of sockets) {
           user.send(message);
         }
-      } else if (message.startsWith('/help')) {
-        message = '/quit: exit chat app\n/yell: sends screaming text\n/whisper: sends lowercase text\n/heart: heart emote\n/help: dialogue options';
+      } else if (text.startsWith('/help')) {
+        message = '/quit: exit chat app<br>/yell: sends screaming text<br>/whisper: sends lowercase text<br>/heart: heart emote<br>/help: dialogue options';
         ws.send(message);
       } else {
         for (var user of sockets) {
@@ -69,7 +70,6 @@ server.on('connection', (ws, req) => {
     for (var user of sockets) {
       user.send(name + ' has left the chat.');
     }
-    sockets.delete(ws);
-    delete names.ws;
+    names.delete(ws);
   });
 });
