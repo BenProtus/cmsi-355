@@ -30,9 +30,18 @@ The two basic approaches used to perform a distributed route computation are __L
 
 ## 21.4 - Write a computer program that accepts a dotted decimal address as input and displays a string of 32 bits.
 
+    def dotted_decimal_to_bits(address):
+        print(' '.join([bin(int(x) + 256)[3:] for x in address.split('.')]))
+
 ## 21.5 - Write a computer program that reads an IP address in dotted decimal form and determines whether the address is a multicast address.
 
+    def is_ip_multicast(address):
+        return 224 <= int(address.split('.')[0]) <= 239
+
 ## 21.6 - Write a computer program that translates between CIDR slash notation and an equivalent dotted decimal value.
+
+    def cidr_to_dotted_decimal(cidr):
+        return cidr.split('/')[0]
 
 ## 21.7 - If an ISP assigned you a / 28 address block, how many computers could you assign an address?
 
@@ -40,22 +49,55 @@ A 28 bit address block leaves 4 bits to assign to various hosts. The first value
 
 ## 21.8 - If an ISP offers a / 17 address block for N dollars per month and a / 16 address block for 1.5 N dollars per month, which has the cheapest cost per computer?
 
+A / 17 address block can host up to 32,766 computers whereas a / 16 address block can host up to 65,534 computers, essentially offering double the available computers at only one and a half times the cost (for the / 16 address block). Therefore __the / 16 address block__ has the cheapest cost per computer.
+
 ## 21.9 - Is the CIDR prefix 1.2.3.4 / 29 valid? Why or why not?
+
+In binary, 1.2.3.4 translates to the bits 00000001 00000010 00000011 00000100, with a mask size of 29 bits denoted by the / 29 address block. This means that the last 3 bits are reserved to signify the specific host and these bits should contain all zeros in the CIDR prefix. This is not the case for the CIDR prefix 1.2.3.4 and therefore __the prefix is invalid__.
 
 ## 21.10 - Suppose you are an ISP with a / 24 address block. Explain whether you accommodate a request from a customer who needs addresses for 255 computers. (Hint: consider the special addresses.)
 
+Supposing that I am an ISP with a / 24 address block, I would not be able to accommodate a request from a customer requiring addresses for 255 computers. While a / 24 address block leaves 8 bits to denote the host (e.g. 255 hosts theoretically possible), two of the host addresses are reserved as the network's special addresses. The host address containing zeros for all eight bits signifies the host address of the network itself. The host address with eight one-bits is reserved as the directed broadcast address and is used when sending the same IP packet(s) to all hosts on the specified network. Therefore, a / 24 address block can only accommadate up to 253 computers.
+
 ## 21.11 - Suppose you are an ISP that owns a / 22 address block. Show the CIDR allocation you would use to allocate address blocks to four customers who need addresses for 60 computers each.
+
+A / 22 address block indicates that only the last 10 bits of the address are mutable. Each customer needs 60 computers, therefore the last 6 bits must be reserved for the host. This means that we can use bits 23-26 to divide the address block four ways to accommadate each of the customers.
+
+192.168.0.0/26
+192.168.0.64/26
+192.168.0.128/26
+192.168.0.192/26
 
 ## 21.12 - Suppose you are an ISP that owns a / 22 address block. Can you accommodate requests from six customers who need addresses for 9, 15, 20, 41, 128, and 260 computers, respectively? If so, how? If not, explain why.
 
+A / 22 address block is unable to accommadate these six customers' needs because there is no way to divide the block to host all the computers of each client simultaneously. As above, a / 22 address block indicates that only the last 10 bits of the address are mutable. In order to host the maximum of 260 computers, a / 23 address block must be assigned to the client, leaving only the 23rd bit available to distinguish between clients. One bit cannot distinguish six different clients, therefore it is impossible to accommadate the requests of all the customers with a / 22 address block.
+
 ## 21.13 - Write a computer program that reads an address in CIDR notation and prints the resulting address and mask in binary.
+
+    def cidr_to_binary(cidr):
+        network, netmask_bits = cidr.split('/')
+        address = '.'.join([bin(int(x) + 256)[3:] for x in network.split('.')])
+        host_bits = 32 - int(netmask_bits)
+        netmask = "".join(list(('1' * host_bits).zfill(32))[::-1])
+        print("Address: ", address)
+        print("   Mask: ", netmask)
 
 ## 23.2 - What term is used to describe the mapping between a protocol address and a hardware address?
 
+__Address resolution__ describes the mapping between a protocol address and a hardware address.
+
 ## 23.5 - How many octets does an ARP message occupy when used with IP and Ethernet addresses?
+
+__28 octets__
 
 ## 23.22 - Many NAT devices choose the 10.0.0.0 /8 address block from Figure 23.10 because it provides the most generality. Explain why.
 
 ## 24.3 - List the major features of IPv6, and give a short description of each.
+
+* __Address Size__: Each IPv6 address contains 128 bits.
+* __Header Format__: The IPv6 datagram header is drastically different than its IPv4 counterpart.
+* __Extension Headers__: A datagram consists of an IPv6 header followed by zero or more extension headers, followed by the data.
+* __Support For Real-Time Traffic__: A sender and receiver can establish a high-quality path through the associated network and send datagrams along this path, enabling a steady datastream between the two.
+* __Extensible Protocol__: IPv6 provides a scheme that permits additional information to be added to the datagram by the sender, allowing new features to be added to the design as needed.
 
 ## 24.9 - Write a computer program that reads a 128-bit binary number and prints the number in colon hex notation.
