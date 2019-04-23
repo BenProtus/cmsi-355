@@ -61,16 +61,16 @@ Supposing that I am an ISP with a / 24 address block, I would not be able to acc
 
 ## 21.11 - Suppose you are an ISP that owns a / 22 address block. Show the CIDR allocation you would use to allocate address blocks to four customers who need addresses for 60 computers each.
 
-A / 22 address block indicates that only the last 10 bits of the address are mutable. Each customer needs 60 computers, therefore the last 6 bits must be reserved for the host. This means that we can use bits 23-26 to divide the address block four ways to accommadate each of the customers.
+A / 22 address block indicates that only the last 10 bits of the address are mutable. Each customer needs 60 computers, therefore the last 6 bits must be reserved for the host. This means that we can use bits 23-26 to divide the address block four ways to accommodate each of the customers.
 
-192.168.0.0/26
-192.168.0.64/26
-192.168.0.128/26
-192.168.0.192/26
+* 192.168.0.0/26
+* 192.168.0.64/26
+* 192.168.0.128/26
+* 192.168.0.192/26
 
 ## 21.12 - Suppose you are an ISP that owns a / 22 address block. Can you accommodate requests from six customers who need addresses for 9, 15, 20, 41, 128, and 260 computers, respectively? If so, how? If not, explain why.
 
-A / 22 address block is unable to accommadate these six customers' needs because there is no way to divide the block to host all the computers of each client simultaneously. As above, a / 22 address block indicates that only the last 10 bits of the address are mutable. In order to host the maximum of 260 computers, a / 23 address block must be assigned to the client, leaving only the 23rd bit available to distinguish between clients. One bit cannot distinguish six different clients, therefore it is impossible to accommadate the requests of all the customers with a / 22 address block.
+A / 22 address block is unable to accommodate these six customers' needs because there is no way to divide the block to host all the computers of each client simultaneously. As above, a / 22 address block indicates that only the last 10 bits of the address are mutable. In order to host the maximum of 260 computers, a / 23 address block must be assigned to the client, leaving only the 23rd bit available to distinguish between clients. One bit cannot distinguish six different clients, therefore it is impossible to accommodate the requests of all the customers with a / 22 address block.
 
 ## 21.13 - Write a computer program that reads an address in CIDR notation and prints the resulting address and mask in binary.
 
@@ -99,7 +99,7 @@ Devices typically choose this address because 10.0.0.0 /8 provides a private net
 * __Address Size__: Each IPv6 address contains 128 bits.
 * __Header Format__: The IPv6 datagram header is drastically different than its IPv4 counterpart.
 * __Extension Headers__: A datagram consists of an IPv6 header followed by zero or more extension headers, followed by the data.
-* __Support For Real-Time Traffic__: A sender and receiver can establish a high-quality path through the associated network and send datagrams along this path, enabling a steady datastream between the two.
+* __Support For Real-Time Traffic__: A sender and receiver can establish a high-quality path through the associated network and send datagrams along this path, enabling a steady data-stream between the two.
 * __Extensible Protocol__: IPv6 provides a scheme that permits additional information to be added to the datagram by the sender, allowing new features to be added to the design as needed.
 
 ## 24.9 - Write a computer program that reads a 128-bit binary number and prints the number in colon hex notation.
