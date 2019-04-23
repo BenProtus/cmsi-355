@@ -92,6 +92,8 @@ __28 octets__
 
 ## 23.22 - Many NAT devices choose the 10.0.0.0 /8 address block from Figure 23.10 because it provides the most generality. Explain why.
 
+Devices typically choose this address because 10.0.0.0 /8 provides a private network with 24 host bits that can be used by any user or organization, supporting a wide range of valid IPs.
+
 ## 24.3 - List the major features of IPv6, and give a short description of each.
 
 * __Address Size__: Each IPv6 address contains 128 bits.
