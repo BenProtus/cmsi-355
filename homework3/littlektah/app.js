@@ -4,8 +4,8 @@ const WebSocket = require('ws');
 
 const app = express();
 app.use(express.static('public'));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'party.html')));
-app.listen(50000, () => console.log('Party server is running'));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'welcome.html')));
+app.listen(50000, () => console.log('Little K\'tah server is running'));
 
 const state = new Map();
 
