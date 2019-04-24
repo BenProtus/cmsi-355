@@ -1,13 +1,21 @@
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="welcome.css">
-  </head>
-  <body>
-    <img src="https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/woman-zombie.png" alt="ZOMBIE" id="zomb"></img>
-    <h1 id="title">Welcome to Little K'tah</h1>
-    <h3 id="title">ENTER A NAME TO START THE GAME!</h3>
-    <div id="input"><input id="name" placeholder="My name is..."></input><button id="enter">ENTER</button></div>
-    <script src="welcome.js"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="littlektah.css">
+</head>
+
+<body>
+  <img src="https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/woman-zombie.png" alt="ZOMBIE"
+    id="zomb"></img>
+  <h1 id="title">Welcome to Little K'tah</h1>
+  <h3 id="title">ENTER A NAME TO START THE GAME!</h3>
+  <div id="input">
+    <form action="/name" method="POST">
+      <input name="name" placeholder="My name is..."></input>
+      <button id="enter">ENTER</button>
+    </form>
+  </div>
+</body>
+
 </html>

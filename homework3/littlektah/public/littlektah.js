@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 //FIXME: can we make this new socket call on both of the client-side JS files??
-const socket = new WebSocket(`ws://${location.hostname}:50001/game`);
+let socket = new WebSocket(`ws://${location.hostname}:50001`);
 
 //moves player by mouse movement and sends coordinates to the server
 canvas.addEventListener('mousemove', (e) => {
@@ -13,9 +13,14 @@ canvas.addEventListener('mousemove', (e) => {
 
 //accepts renderData, which is an array of objects [{location: l, color: c}, ...], and renders each player as a rectangle
 socket.addEventListener('message', (event) => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  JSON.parse(event.data).forEach(({ location, color }) => {
-    ctx.fillStyle = color;
-    ctx.fillRect(...location, 10, 10);
-  });
+  if (event.data.substring(0,5) === 'COORD') {
+    event.data = event.data.substring(6);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    JSON.parse(event.data).forEach(({ location, color }) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(...location, 10, 10);
+    });
+  } else if (event.data.substring(0,6) === 'HEALTH') {
+    event.data = event.data.substring(7);
+  }
 });
