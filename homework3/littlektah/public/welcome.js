@@ -9,3 +9,9 @@ button.addEventListener('click', () => {
     name = input.value;
     socket.send(`NAME ${name}`);
 })
+
+socket.addEventListener('message', (event) => {
+    if (event.startsWith('NAMEACCEPTED')) {
+        socket.send('READY');
+    }
+  });

@@ -28,16 +28,17 @@ new WebSocket.Server({ port: 50001 }).on('connection', (socket, req) => {
       let name = data.substring(5);
       if (!names.has(name)) {
         console.log("Name Accepted:", name);
-        socket.send('NAMEACCEPTED');
+        //socket.send('NAMEACCEPTED');
         names.add(name);
+        app.get('/game', (req, res) => res.redirect(path.join(__dirname, 'public', 'littlektah.html')));
         //TODO: need to navigate to game page at this point, need to figure that out, execute before we send NAMEACCEPTED?
       }
+    } else if (data.startsWith('READY')) {
+      state.set(socket, { location: [0, 0], color: randomColor() });
     } else if (data.startsWith('MOVE')) {
-      let coords = 
+      state.get(socket).location = JSON.parse(data.substring(5));
+      const renderData = JSON.stringify(Array.from(state.values()));
+      Array.from(state.keys()).forEach(sock => sock.send(renderData));
     }
-    state.set(socket, { location: [0, 0], color: randomColor() });
-    state.get(socket).location = JSON.parse(data);
-    const renderData = JSON.stringify(Array.from(state.values()));
-    Array.from(state.keys()).forEach(sock => sock.send(renderData));
   });
 });
