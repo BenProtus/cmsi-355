@@ -11,7 +11,7 @@ button.addEventListener('click', () => {
 })
 
 socket.addEventListener('message', (event) => {
-    if (event.startsWith('NAMEACCEPTED')) {
+    if (event.data === 'NAMEACCEPTED') {
         socket.send('READY');
     }
   });

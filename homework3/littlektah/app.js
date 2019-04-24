@@ -28,17 +28,19 @@ new WebSocket.Server({ port: 50001 }).on('connection', (socket, req) => {
       let name = data.substring(5);
       if (!names.has(name)) {
         console.log("Name Accepted:", name);
-        //socket.send('NAMEACCEPTED');
         names.add(name);
-        app.get('/game', (req, res) => res.redirect(path.join(__dirname, 'public', 'littlektah.html')));
-        //TODO: need to navigate to game page at this point, need to figure that out, execute before we send NAMEACCEPTED?
+        socket.send('NAMEACCEPTED');
       }
     } else if (data.startsWith('READY')) {
-      state.set(socket, { location: [0, 0], color: randomColor() });
+      //TODO: need to navigate to game page at this point, need to figure out how
+      app.get('/game', (req, res) => res.sendFile(path.join(__dirname, 'public', 'littlektah.html')));
+      state.set(socket, { location: [0, 0], color: randomColor(), health: 20, points: 0 });
     } else if (data.startsWith('MOVE')) {
       state.get(socket).location = JSON.parse(data.substring(5));
       const renderData = JSON.stringify(Array.from(state.values()));
       Array.from(state.keys()).forEach(sock => sock.send(renderData));
+    } else if (data.startsWith('COLLISION')) {
+      state.get(socket).health -= 1;
     }
   });
 });
