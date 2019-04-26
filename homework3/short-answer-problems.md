@@ -103,3 +103,7 @@ Devices typically choose this address because 10.0.0.0 /8 provides a private net
 * __Extensible Protocol__: IPv6 provides a scheme that permits additional information to be added to the datagram by the sender, allowing new features to be added to the design as needed.
 
 ## 24.9 - Write a computer program that reads a 128-bit binary number and prints the number in colon hex notation.
+    def binary_to_colon_hex(bits):
+        hex_num = hex(int(bits, 2))[2:].zfill(32)
+        colon_hex = [hex_num[i:i+4] for i in range(0, len(hex_num), 4)]
+        print(':'.join([s.lstrip('0') or '0' for s in colon_hex]))
