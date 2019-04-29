@@ -4,17 +4,17 @@ const WebSocket = require('ws');
 
 const app = express();
 app.use(express.static('public'));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'welcome.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'littlektah.html')));
 app.listen(50000, () => console.log('Little K\'tah server is running'));
 
 const state = new Map();
+const zombs = new Map();
 const names = new Set();
 
 function randomColor() {
   const [r, g, b] = Array(3).fill(0).map(() => Math.floor(Math.random() * 200));
   return `rgb(${r}, ${g}, ${b})`;
 }
-
 
 new WebSocket.Server({ port: 50001 }).on('connection', (socket, req) => {
   console.log('Connection from', req.connection.remoteAddress);
@@ -32,13 +32,11 @@ new WebSocket.Server({ port: 50001 }).on('connection', (socket, req) => {
         socket.send('NAMEACCEPTED');
       }
     } else if (data.startsWith('READY')) {
-      //TODO: need to navigate to game page at this point, need to figure out how
-      app.get('/game', (req, res) => res.sendFile(path.join(__dirname, 'public', 'littlektah.html')));
       state.set(socket, { location: [0, 0], color: randomColor(), health: 20, points: 0 });
     } else if (data.startsWith('MOVE')) {
       state.get(socket).location = JSON.parse(data.substring(5));
       const renderData = JSON.stringify(Array.from(state.values()));
-      Array.from(state.keys()).forEach(sock => sock.send(renderData));
+      Array.from(state.keys()).forEach(sock => sock.send('MOVE ' + renderData));
     } else if (data.startsWith('COLLISION')) {
       state.get(socket).health -= 1;
     }

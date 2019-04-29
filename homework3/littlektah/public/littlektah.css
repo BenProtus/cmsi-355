@@ -1,7 +1,39 @@
 body {
-    margin: 20px;
-  }
+  margin: 50px;
+}
+
+#zomb {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#title {
+  text-align: center;
+  font-size: 30px;
+}
+
+#input {
+  text-align: center;
+}
+
+#name {
+  border-radius: 3px;
+  border-color: black;
+  border-width: 1px;
+}
+
+#enter {
+  margin-left: 2px;
+  background-color: lightgreen;
+  border-radius: 3px;
+  border-color: black;
+  border-width: 1px;
+}
   
-  canvas {
-    background-color: #dfd;
-  }
+canvas {
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #dfd;
+}
