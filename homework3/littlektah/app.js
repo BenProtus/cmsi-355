@@ -11,6 +11,10 @@ const state = new Map();
 const zombs = new Map();
 const names = new Set();
 
+for (i=0; i<5; i++) {
+  zombs.set(`zombie${i}`, { location: [2 ** i, -(2 ** i)], color: 'red' });
+}
+
 function randomColor() {
   const [r, g, b] = Array(3).fill(0).map(() => Math.floor(Math.random() * 200));
   return `rgb(${r}, ${g}, ${b})`;
@@ -39,6 +43,9 @@ new WebSocket.Server({ port: 50001 }).on('connection', (socket, req) => {
       Array.from(state.keys()).forEach(sock => sock.send('MOVE ' + renderData));
     } else if (data.startsWith('COLLISION')) {
       state.get(socket).health -= 1;
+      if (state.get(socket).health === 0) {
+        socket.close();
+      }
     }
   });
 });
