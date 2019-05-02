@@ -2,13 +2,25 @@
 
 ## 25.4 - Calculate the size of the largest possible UDP message. (Hint: the entire UDP message must fit in an IP datagram.)
 
+The largest possible UDP message is __65,507 bytes__ because the theoretical maximum of 65,535 bytes is limited by the 8 byte UDP header and the 20 byte IP header.
+
 ## 26.4 - What are the main problems a transport protocol must solve to achieve reliable transfer?
+
+The mains problems solved by a transport protocol are:
+* *Unreliable Communication*: Messages sent across the Internet can be lost, duplicated, corrupted, delayed, or delivered out of order.
+* *End System Reboot*: Sessions must remain consistent even if a system involved in that session were to reboot.
+* *Heterogenous End Systems*: Powerful computers may overrun the inferior systems they send messages to.
+* *Congestion in the Internet*: Too much transmitted data can slow down/block traffic over routers and switches.
 
 ## 26.6 - When using a sliding window of size N, how many packets can be sent without requiring a single ACK to be received?
 
+The throughput achieved is T<sub>W</sub> = min(B, T<sub>G</sub> * N), where B is the hardware bandwidth of the network and T<sub>G</sub> is the throughput achieved by receiving ACK statements. This means that the number of packets that can be sent without requiring a single ACK to be received is either the hardware capacity or the window size N.
+
 ## 26.12 - How does TCP compute a timeout for retransmission?
 
-## 26.15 - Suppose two programs use TCP to establish a connection, communicate, terminate the connection, and then open a new connection. Further suppose a FIN message sent to shut down the first connection is duplicated and delayed until the second connection has been established. If a copy of the old FIN is delivered, will TCP terminate the new con- nection? Why or why not?
+Whenever TCP transmits a message, it starts a timer and waits for an acknoledgment. If the timer runs out before an ACK is received, TCP retransmits the data.
+
+## 26.15 - Suppose two programs use TCP to establish a connection, communicate, terminate the connection, and then open a new connection. Further suppose a FIN message sent to shut down the first connection is duplicated and delayed until the second connection has been established. If a copy of the old FIN is delivered, will TCP terminate the new connection? Why or why not?
 
 ## 27.2 - What two entries are needed in the forwarding table of a typical host?
 
