@@ -22,11 +22,27 @@ Whenever TCP transmits a message, it starts a timer and waits for an acknoledgme
 
 ## 26.15 - Suppose two programs use TCP to establish a connection, communicate, terminate the connection, and then open a new connection. Further suppose a FIN message sent to shut down the first connection is duplicated and delayed until the second connection has been established. If a copy of the old FIN is delivered, will TCP terminate the new connection? Why or why not?
 
+If a copy of the old FIN is delivered, TCP will not terminate the new connections immediately because of the three-way handshake required to both start and end a connection. So the other computer will send FIN-ACK back when the old FIN is delivered. Likely the host receiving the FIN-ACK will recognize that it did not send a FIN message, and continue to use the connection rather than send an ACK statement back and end it.
+
 ## 27.2 - What two entries are needed in the forwarding table of a typical host?
+
+1. The network to which the host attaches.
+2. A default entry that directs all other traffic to a specific router.
 
 ## 30.8 - List and describe the eight basic security techniques.
 
+1. *Hashing*:
+2. *Encryption*:
+3. *Digital Signatures*: A host authenticates the sender of a message using an encryption technique known only by the host.
+4. *Digital Certificates*:
+5. *Firewalls*:
+6. *Intrusion Detection*:
+7. *Deep Packet Inspection & Content Scanning*:
+8. *VPNs*:
+
 ## 30.11 - Read about the Data Encryption Standard (DES). What size key should be used for data that is extremely important?
+
+Each DES key has an effective size of 56 bits. To protect extremely important data, a triple DES should be used to encrypt data three times over with three separate keys, allowing 168 indepedent bits to protect the data.
 
 ## 30.14 - How can two parties use public key encryption to sign a contract that is then sent to a third party?
 
