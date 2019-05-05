@@ -46,6 +46,12 @@ Each DES key has an effective size of 56 bits. To protect extremely important da
 
 ## 30.14 - How can two parties use public key encryption to sign a contract that is then sent to a third party?
 
+Party A and party B sign the contract with their digital signatures then encrypt it with the third party's public key. The third party can verify the data is unmodified and is the only one who can decrypt it.
+
 ## 30.17 - Many commercial firewall products allow a manager to specify packets to deny as well as packets to accept. What is the disadvantage of a configuration that allows denial?
 
+Specifying what type of packets are allowed is the better implementation of packet filtering called whitelisiting. Creating a packet whitelist clearly defines the packets allowed into a network whereas a blacklist would need to be much longer and more comprehensive to block everything.
+
 ## 30.21 - Consider a DPI system that searches for a string of K bytes in each packet. If a packet contains 1486 bytes of payload, what is the worst case number of comparisons that must be made to examine the packet assuming a straightforward matching algorithm?
+
+The worst case number of comparisons would be 1486. Iterating through each K byte combinations.
